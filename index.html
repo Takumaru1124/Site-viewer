@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>URLをiframeで表示</title>
+<style>
+    body{
+        margin:0;
+        font-family: sans-serif;
+        height:100vh;
+        display:flex;
+        flex-direction:column;
+    }
+    .toolbar{
+        display:flex;
+        gap:10px;
+        padding:10px;
+        background:#f0f0f0;
+    }
+    input{
+        flex:1;
+        padding:8px;
+        font-size:16px;
+    }
+    button{
+        padding:8px 16px;
+        font-size:16px;
+        cursor:pointer;
+    }
+    iframe{
+        flex:1;
+        width:100%;
+        border:none;
+    }
+</style>
+</head>
+<body>
+
+<div class="toolbar">
+    <input type="url" id="urlInput" placeholder="https://example.com">
+    <button onclick="loadPage()">表示</button>
+</div>
+
+<iframe id="viewer" src="about:blank"></iframe>
+
+<script>
+function loadPage() {
+    let url = document.getElementById("urlInput").value.trim();
+
+    if (!url) return;
+
+    if (!/^https?:\/\//i.test(url)) {
+        url = "https://" + url;
+    }
+
+    document.getElementById("viewer").src = url;
+}
+
+document.getElementById("urlInput").addEventListener("keydown", e => {
+    if (e.key === "Enter") loadPage();
+});
+</script>
+
+</body>
+</html>
